@@ -8,6 +8,8 @@ We additionally added a helpful `batch_runner.py` python file to run experiments
 
 For more details on W-EECBS please checkout the [arXiv paper](https://arxiv.org/abs/2205.11624) which is more up-to-date than the [AAAI publication](https://ojs.aaai.org/index.php/AAAI/article/view/26381). 
 
+Note the current implementation only implements W-EECBS with a space-time low-level search (i.e. SIPP is not supported).
+
 ## Usage
 ### Step 1: Building
 First create build folders to keep the main folder unpopulated. We recommend creating two, one for debugging and one for running experiments.
@@ -72,7 +74,7 @@ python batch_runner.py den312d --logPath data/logs/comparison --cutoffTime 10 --
 ```
 Feel free to try it out with different parameters or map instances and modify this script as needed.
 
-## Performance dependent on conflict heuristic computation
+## Performance depends on conflict heuristic computation
 When working on another project we realized that W-EECBS had a more accurate conflict estimate that accidentally hurt EECBS's performance. The arXiv discusses this more in-depth and shows updated results with the less accurate but better baseline performance conflict computation.
 
 One can get the original results (with the more accurate heuristic that hurts baseline) by replacing `src/SpaceTimeAStar.cpp` lines 113-114 with lines 109-112.

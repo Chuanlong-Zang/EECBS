@@ -46,13 +46,13 @@ int main(int argc, char** argv)
 		("rectangleReasoning", po::value<bool>()->default_value(true), "rectangle reasoning")
 		("corridorReasoning", po::value<bool>()->default_value(true), "corridor reasoning")
 		("targetReasoning", po::value<bool>()->default_value(true), "target reasoning")
-		("sipp", po::value<bool>()->default_value(0), "using SIPPS as the low-level solver")
+		("sipp", po::value<bool>()->default_value(0), "using SIPPS as the low-level solver - Not currently supported for W-EECBS")
 		("restart", po::value<int>()->default_value(0), "rapid random restart times")
 
 		// params for W-EECBS (WF-EECBS) from Effective Integration of Weighted Cost-to-go and Conflict Heuristic paper
 		("r_weight", po::value<double>()->default_value(4), "the relative weight for the conflict-dependent term")
 		("h_weight", po::value<double>()->default_value(2), "the weight for the heuristic term")
-		("useWeightedFocalSearch", po::value<bool>()->default_value(false), "use weighted focal search")
+		("useWeightedFocalSearch", po::value<bool>()->default_value(false), "use weighted focal search, set true for W-EECBS")
 		;
 	po::variables_map vm;
 	po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -66,6 +66,11 @@ int main(int argc, char** argv)
 	if (vm["suboptimality"].as<double>() < 1)
 	{
 		cerr << "Suboptimal bound should be at least 1!" << endl;
+		return -1;
+	}
+	if (vm["sipp"].as<bool>() && vm["useWeightedFocalSearch"].as<bool>())
+	{
+		cerr << "Weighted focal search for W-EECBS not currently supported with SIPP" << endl;
 		return -1;
 	}
 
