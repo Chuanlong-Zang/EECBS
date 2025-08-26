@@ -600,6 +600,16 @@ void ECBS::printPaths() const
 	}
 }
 
+std::vector<Path> ECBS::getPaths() const
+{
+	std::vector<Path> out;
+	out.reserve(paths.size());
+	for (const auto* p : paths) {
+		if (p) out.push_back(*p);
+		else   out.emplace_back(); // keep alignment if a path pointer is null
+	}
+	return out;
+}
 
 void ECBS::classifyConflicts(ECBSNode &node)
 {
