@@ -91,6 +91,7 @@ public:
 	void saveCT(const string &fileName) const; // write the CT to a file
     void savePaths(const string &fileName) const; // write the paths to a file
 	void clear(); // used for rapid random  restart
+	std::vector<Path> getPaths() const;
 
 	int getInitialPathLength(int agent) const {return (int) paths_found_initially[agent].size() - 1; }
 protected:

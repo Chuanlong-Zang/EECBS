@@ -41,6 +41,4 @@ private:
 	//update information
 	void updatePaths(ECBSNode* curr);
 	void printPaths() const;
-
-	std::vector<Path> getPaths() const;
 };
